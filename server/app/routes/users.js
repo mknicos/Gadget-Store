@@ -8,6 +8,7 @@ exports.create = function(req, res){
 
   var user = new User(req.body);
   users.insert(user, function(err, record){
+    if(err){ throw err;}
     res.send(record);
   });
 
