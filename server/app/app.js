@@ -9,6 +9,7 @@ var connectMongo = require('./lib/mongodb-connection-pool').initialize(dbname);
 var express = require('express');
 var home = require('./routes/home');
 var users = require('./routes/users');
+var items = require('./routes/items');
 var app = express();
 
 /* --- pipeline begins */
@@ -20,7 +21,10 @@ app.use(express.methodOverride());
 app.use(app.router);
 
 app.get('/', debug, home.index);
-app.post('/users', debug, users.create);
+app.get('/users', debug, users.getUsers);
+app.post('/users', debug, users.createUser);
+app.get('/items', debug, items.getItems);
+app.post('/items', debug, items.createItem);
 /* --- pipeline ends   */
 
 var server = require('http').createServer(app);

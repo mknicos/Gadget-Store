@@ -29,37 +29,27 @@ html(class='no-js', lang='en')
           tr
             th(width='125') UserName
             th(width='100') Balance
-            th(width='300') Items Bought
-          tr
-            td Guy
-            td 3000
-            td Phone, TV
+            th(width='250') Items Bought
     .row
       .small-6.columns
       .small-3.columns
-        form#gadgetInput
+        form#itemInput
           label Product
-          input#gadetName(type='text', placeholder='Product Name')
+          input#itemName(type='text', placeholder='Product Name')
           label Cost
-          input#deposit(type='text', placeholder='$$')
+          input#cost(type='text', placeholder='$$')
           label Quantity
           input#quantity(type='text', placeholder='1')
-          button#createGadget.tiny Create Gadget
+          button#createItem.tiny Create Gadget
       .small-6.columns
     .row
       .small-12.columns
-        table#gadgetTable
+        table#itemTable
           tr
             th(width ='75')
             th(width ='125') Gadget Name
             th(width ='75') Cost
             th(width = '75') Quantity on Hand
-          tr
-            td
-              button.tiny.round.buy Buy
-            td Phone
-            td 35
-            td 6
     .row
       .small-4.columns
       .small-4.columns
