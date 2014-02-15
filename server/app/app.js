@@ -1,13 +1,14 @@
 'use strict';
 
-var dbname = 'database-name';
+var dbname = 'gadget-store';
 var port = process.env.PORT || 4000;
 
-var d = require('./lib/request-debug');
+var debug = require('./lib/request-debug');
 var connectMongo = require('./lib/mongodb-connection-pool').initialize(dbname);
 
 var express = require('express');
 var home = require('./routes/home');
+var users = require('./routes/users');
 var app = express();
 
 /* --- pipeline begins */
@@ -18,7 +19,8 @@ app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(app.router);
 
-app.get('/', d, home.index);
+app.get('/', debug, home.index);
+app.post('/users', debug, users.create);
 /* --- pipeline ends   */
 
 var server = require('http').createServer(app);
