@@ -12,9 +12,13 @@
     $(document).foundation();
     getUsers();
     getItems();
+    $('#createItemButton').click(popUpItemInput);
+    $('#createUserButton').click(popUpUserInput);
     $('#createUser').click(createUser);
     $('#createItem').click(createItem);
     $('#closePop').click(closeBuy);
+    $('#closeItem').click(closeItemsInput);
+    $('#closeUser').click(closeUsersInput);
     $('#itemTable').on('click', '.buy', purchaseItem);
   }
 
@@ -34,6 +38,10 @@
       putUserOnScreen(users[i]);
     }
   }
+  function popUpUserInput(){
+    darkenBG();
+    $('#usersInput').show();
+  }
 
   function createUser(event){
   //Called when createUser button is clicked
@@ -47,9 +55,6 @@
 
     $.ajax({url: url, type: type, data:obj, success: success});
 
-    $('#userName').val('');
-    $('#deposit').val('');
-
     event.preventDefault();
   }
 
@@ -59,6 +64,7 @@
     console.log(response[0]);
     putUserOnScreen(response[0]);
     userArray.push(response[0]);
+    closeUsersInput();
   }
 
   function putUserOnScreen(user){
@@ -86,6 +92,7 @@
       putItemOnScreen(items[i]);
     }
   }
+
   function putItemOnScreen(item){
   // Will take in one item object and post to item table with a data-id of the _id in mongo database
     var $itemName = $('<td>').text(item.name).addClass('itemName');
@@ -97,6 +104,10 @@
     $buttonTD.append($button);
     $row.append($buttonTD, $itemName, $itemCost, $quantity);
     $('#itemTable').append($row);
+  }
+  function popUpItemInput(){
+    darkenBG();
+    $('#itemInput').show();
   }
 
   function createItem(event){
@@ -120,9 +131,7 @@
     debugger;
     putItemOnScreen(response[0]);
     itemArray.push(response[0]);
-    $('#itemName').val('');
-    $('#cost').val('');
-    $('#quantity').val('');
+    closeItemsInput();
   }
 
 //------------------------------Transactions----------------------------//
@@ -172,6 +181,21 @@
     resetBG();
     $('#quantityBuy').empty();
     $('#usersBuy').empty();
+  }
+
+  function closeUsersInput(){
+    resetBG();
+    $('#userName').empty();
+    $('#deposit').empty();
+    $('#usersInput').hide();
+  }
+
+  function closeItemsInput(){
+    resetBG();
+    $('#itemName').empty();
+    $('#cost').empty();
+    $('#quantity').empty();
+    $('#itemInput').hide();
   }
 
   function darkenBG(){

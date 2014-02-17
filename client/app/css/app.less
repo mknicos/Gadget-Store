@@ -5,6 +5,9 @@ body{
   background-color: @bg-color;
 }
 
+h1{
+  text-align: center;
+}
 
 form{
   border: 1px solid black;
@@ -25,6 +28,40 @@ table{
   border: 2px solid darken(@buy-button, 20%);
 }
 
+#itemInput{
+  display:none;
+  border: 3px solid darken(@buy-button, 30%);
+  padding: 15px;
+  position: fixed;
+  top: 400px;
+  bottom: 600px;
+  left: 500px;
+  right: 0px;
+  width: 350px;
+  height: 400px;
+  background-color: lightgreen;
+  box-shadow: 5px 5px 4px 4px black;
+  text-align: center;
+  z-index: 2;
+}
+
+#usersInput{
+  display:none;
+  border: 3px solid darken(@buy-button, 30%);
+  padding: 15px;
+  position: fixed;
+  top: 400px;
+  bottom: 600px;
+  left: 500px;
+  right: 0px;
+  width: 350px;
+  height: 400px;
+  background-color: lightgreen;
+  box-shadow: 5px 5px 4px 4px black;
+  text-align: center;
+  z-index: 2;
+}
+
 #popUpBuy{
   display:none;
   border: 3px solid darken(@buy-button, 30%);
@@ -32,13 +69,14 @@ table{
   position: fixed;
   top: 400px;
   bottom: 600px;
-  left: 400px;
+  left: 500px;
   right: 0px;
   width: 350px;
   height: 400px;
   background-color: lightgreen;
   box-shadow: 5px 5px 4px 4px black;
   text-align: center;
+  z-index: 100;
 }
 
 h2{
@@ -46,7 +84,7 @@ h2{
   font-weight: bold;
 }
 
-span{
+#closePop{
   border: 1px solid black;
   float: right;
   padding: 2px;
@@ -57,4 +95,51 @@ span{
   font-size: 24px;
 }
 
+#closeUser{
+  border: 1px solid black;
+  float: right;
+  padding: 2px;
+  border-radius: 1000px;
+  position: relative;
+  top: -8px;
+  left: 10;
+  font-size: 24px;
+}
+#closeItem{
+  border: 1px solid black;
+  float: right;
+  padding: 2px;
+  border-radius: 1000px;
+  position: relative;
+  top: -8px;
+  left: 10px;
+  font-size: 24px;
+}
+#createUserButton{
+  background-color: darken(@bg-color, 30%);
+  padding: 5px;
+  border: 1px solid black;
+}
 
+#createUserButton:hover{
+  background-color: cadetblue;
+  box-shadow: inset 2px 2px 2px 2px darken(cadetblue, 30%)
+}
+
+#createItemButton{
+  padding: 5px;
+  background-color: darken(@bg-color, 30%);
+  border: 1px solid black;
+  position: relative;
+  left: 250px;
+
+}
+#createItemButton:hover{
+  background-color: cadetblue;
+  box-shadow: inset 2px 2px 2px 2px darken(cadetblue, 30%)
+}
+
+
+#spacer{
+  height: 80px;
+}

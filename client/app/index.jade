@@ -14,26 +14,24 @@ html(class='no-js', lang='en')
       .small-12.columns
         h1 Gadgets-R-Us
     .row
-      .small-6.columns
+      .small-12.columns
+        #spacer
+    .row
+      .small-1.columns
       .small-3.columns
+        span#createUserButton ADD USER
         form#usersInput
+          span#closeUser X
           label User Name
           input#userName(type='text', placeholder='Insert Name')
           label Deposit Amount
           input#deposit(type='text', placeholder='Cash Money')
           button#createUser.tiny Create User
-      .small-6.columns
-    .row
-      .small-12.columns
-        table#userTable
-          tr
-            th(width='125') UserName
-            th(width='100') Balance
-            th(width='250') Items Bought
-    .row
-      .small-6.columns
+      .small-4.columns
       .small-3.columns
+        span#createItemButton ADD ITEM
         form#itemInput
+          span#closeItem X
           label Product
           input#itemName(type='text', placeholder='Product Name')
           label Cost
@@ -41,9 +39,15 @@ html(class='no-js', lang='en')
           label Quantity
           input#quantity(type='text', placeholder='1')
           button#createItem.tiny Create Gadget
-      .small-6.columns
+      .small-1.columns
     .row
-      .small-12.columns
+      .small-6.columns
+        table#userTable
+          tr
+            th(width='125') UserName
+            th(width='100') Balance
+            th(width='250') Items Bought
+      .small-6.columns
         table#itemTable
           tr
             th(width ='75')
@@ -51,8 +55,7 @@ html(class='no-js', lang='en')
             th(width ='75') Cost
             th(width = '75') Quantity on Hand
     .row
-      .small-4.columns
-      .small-4.columns
+      .small-4.centered.columns
         #popUpBuy
           div
             span#closePop X
@@ -66,7 +69,6 @@ html(class='no-js', lang='en')
             select#quantityBuy(placeholder:'select quantity')
               option Select Quantity
             button#confirmBuy.alert CONFIRM
-      .small-4.columns
         
     script(src='/js/vendor/jquery.js')
     script(src='/js/vendor/foundation.js')
