@@ -20,6 +20,7 @@
     $('#closeItem').click(closeItemsInput);
     $('#closeUser').click(closeUsersInput);
     $('#itemTable').on('click', '.buy', purchaseItem);
+    $('#confirmBuy').click(confirmBuy);
   }
 
 //----------------------------USERS--------------------------------//
@@ -149,7 +150,7 @@
     fillUserDropDown();
     fillQuantityDropDown(selectQuantity);
 
-    $('#popUpBuy h2').text(selectName);
+    $('#popUpBuy h2').text(selectName).attr('data-id', id);
     $('#popUpBuy  h3').text('Cost is $' +selectCost+ ' each');
     $('#popUpBuy  h4').text('There are ' + selectQuantity + ' available');
     event.preventDefault();
@@ -163,6 +164,7 @@
       var id = user[i]._id;
       var cash = user[i].cash;
       var $option = $('<option>').attr('data-id', id).text(name + ': ( $' + cash+')');
+      $option.attr('data-cash', cash);
       $('#usersBuy').append($option);
     }
   }
@@ -172,6 +174,26 @@
       var $option = $('<option>').text(i);
       $('#quantityBuy').append($option);
     }
+  }
+
+  function confirmBuy(){
+    debugger;
+    var userCash = $('#usersBuy').data('cash');
+    var user = $('#usersBuy').val();
+    var quantity = $('#quantityBuy').val();
+    var id = $('#popUpBuy h2').data('id');
+    var row = $('#itemTable[data-id='+id+']');
+    var selectCost = row.children('.itemCost').text();
+    var itemData = _.find(userArray, {'_id' : id});
+    console.log(itemData);
+
+    if((selectCost * quantity) > userCash){
+      alert(user + ' doesnt have enough money');
+      return;
+    }else{
+      alert('Thanks for the purchase');
+    }
+    console.log(user, quantity);
   }
 
 
