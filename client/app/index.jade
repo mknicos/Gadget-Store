@@ -54,11 +54,18 @@ html(class='no-js', lang='en')
       .small-4.columns
       .small-4.columns
         #popUpBuy
-          select#usersBuy(placeholder:'select user')
-            option Select User
-          select#quantityBuy(placeholder:'select quantity')
-            option Select Quantity
-          button#confirmBuy.alert CONFIRM
+          div
+            span#closePop X
+            h2#popUpName ITEM NAME
+            h3#popUpCost Cost
+            h4#popUpQuan Quan
+            label Select User
+            select#usersBuy(placeholder:'select user')
+              option Select User
+            label Select Quantity
+            select#quantityBuy(placeholder:'select quantity')
+              option Select Quantity
+            button#confirmBuy.alert CONFIRM
       .small-4.columns
         
     script(src='/js/vendor/jquery.js')

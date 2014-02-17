@@ -14,6 +14,7 @@
     getItems();
     $('#createUser').click(createUser);
     $('#createItem').click(createItem);
+    $('#closePop').click(closeBuy);
     $('#itemTable').on('click', '.buy', purchaseItem);
   }
 
@@ -100,6 +101,7 @@
 
   function createItem(event){
     // On button click, adds item to database and displays in item table
+    debugger;
     var name = $('#itemName').val();
     var cost = $('#cost').val();
     var quantity = $('#quantity').val();
@@ -108,32 +110,75 @@
     var type = 'POST';
     var success = itemPostSuccess;
 
-    $.ajax({obj:obj, url: url, type: type, success:success});
-
-    $('#itemName').val('');
-    $('#cost').val('');
-    $('#quantity').val('');
+    $.ajax({data:obj, url: url, type: type, success:success});
 
     event.preventDefault();
   }
 
   function itemPostSuccess(response){
     // function is called when post request is successful
+    debugger;
     putItemOnScreen(response[0]);
     itemArray.push(response[0]);
+    $('#itemName').val('');
+    $('#cost').val('');
+    $('#quantity').val('');
   }
 
 //------------------------------Transactions----------------------------//
 
   function purchaseItem(event){
     debugger;
+    $('#popUpBuy').show(); //reveal form
+    darkenBG();
+    //retrieve info from row of table that buy buton was pushed
     var id = $(this).parent().parent().data('id');
-    console.log(id);
-    event.preventDefault();
     var selectedRow = $('tr[data-id='+ id + ']');
     var selectName = selectedRow.children('.itemName').text();
     var selectCost = selectedRow.children('.itemCost').text();
     var selectQuantity = selectedRow.children('.itemQuantity').text();
-    console.log('name is : ' + selectName +'cost: ' + selectCost + ' quan: ' + selectQuantity);
+    fillUserDropDown();
+    fillQuantityDropDown(selectQuantity);
+
+    $('#popUpBuy h2').text(selectName);
+    $('#popUpBuy  h3').text('Cost is $' +selectCost+ ' each');
+    $('#popUpBuy  h4').text('There are ' + selectQuantity + ' available');
+    event.preventDefault();
+  }
+
+  function fillUserDropDown(){
+    debugger;
+    for(var i = 0; i < userArray.length; i++){
+      var user = userArray;
+      var name = user[i].name;
+      var id = user[i]._id;
+      var cash = user[i].cash;
+      var $option = $('<option>').attr('data-id', id).text(name + ': ( $' + cash+')');
+      $('#usersBuy').append($option);
+    }
+  }
+
+  function fillQuantityDropDown(quan){
+    for(var i = 1; i <= quan; i ++){
+      var $option = $('<option>').text(i);
+      $('#quantityBuy').append($option);
+    }
+  }
+
+
+//-----------------Utility Functions-----------------//
+  function closeBuy(){
+    $('#popUpBuy').hide(); //hide form
+    resetBG();
+    $('#quantityBuy').empty();
+    $('#usersBuy').empty();
+  }
+
+  function darkenBG(){
+    $('body').css('background-color', 'gray');
+  }
+
+  function resetBG(){
+    $('body').css('background-color', 'lightblue');
   }
 })();
