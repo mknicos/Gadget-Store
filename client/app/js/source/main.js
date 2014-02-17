@@ -14,7 +14,7 @@
     getItems();
     $('#createUser').click(createUser);
     $('#createItem').click(createItem);
-    $('#itemTable').on('click', $('.buy'), purchaseItem);
+    $('#itemTable').on('click', '.buy', purchaseItem);
   }
 
 //----------------------------USERS--------------------------------//
@@ -63,7 +63,7 @@
   function putUserOnScreen(user){
   // Will take in one user object and post to user table with a data-id of the _id in mongo database
     var $userName = $('<td>').text(user.name).addClass('userName');
-    var $userBalance = $('<td>').text(user.cash).addClass('userrBalance');
+    var $userBalance = $('<td>').text(user.cash).addClass('userBalance');
     var $userItems = $('<td>').text('No Items Bought').addClass('userItems');
     var $row = $('<tr>').attr('data-id', user._id);
     $row.append($userName, $userBalance, $userItems);
@@ -91,8 +91,10 @@
     var $itemCost = $('<td>').text(item.cost).addClass('itemCost');
     var $quantity = $('<td>').text(item.quantity).addClass('itemQuantity');
     var $row = $('<tr>').attr('data-id', item._id);
+    var $buttonTD = $('<td>');
     var $button = $('<button>').text('BUY').addClass('tiny round buy');
-    $row.append($button, $itemName, $itemCost, $quantity);
+    $buttonTD.append($button);
+    $row.append($buttonTD, $itemName, $itemCost, $quantity);
     $('#itemTable').append($row);
   }
 
@@ -124,8 +126,14 @@
 //------------------------------Transactions----------------------------//
 
   function purchaseItem(event){
-    console.log(this);
-    console.log(event);
+    debugger;
+    var id = $(this).parent().parent().data('id');
+    console.log(id);
     event.preventDefault();
+    var selectedRow = $('tr[data-id='+ id + ']');
+    var selectName = selectedRow.children('.itemName').text();
+    var selectCost = selectedRow.children('.itemCost').text();
+    var selectQuantity = selectedRow.children('.itemQuantity').text();
+    console.log('name is : ' + selectName +'cost: ' + selectCost + ' quan: ' + selectQuantity);
   }
 })();
