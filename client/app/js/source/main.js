@@ -14,11 +14,11 @@
     getItems();
     $('#createUser').click(createUser);
     $('#createItem').click(createItem);
+    $('#itemTable').on('click', $('.buy'), purchaseItem);
   }
 
 //----------------------------USERS--------------------------------//
   function getUsers(){
-    debugger;
   //fills User Table with users from database on page load
     var url = window.location.origin.replace(/3000/, '4000') + '/users';
     $.getJSON(url, fillUserTable);
@@ -27,7 +27,6 @@
   function fillUserTable(data){
   // called on succcess of GET request
     var users = data.users;
-    debugger;
     console.log(users);
     for(var i = 0; i < users.length; i++){
       userArray.push(users[i]);
@@ -63,7 +62,6 @@
 
   function putUserOnScreen(user){
   // Will take in one user object and post to user table with a data-id of the _id in mongo database
-    debugger;
     var $userName = $('<td>').text(user.name).addClass('userName');
     var $userBalance = $('<td>').text(user.cash).addClass('userrBalance');
     var $userItems = $('<td>').text('No Items Bought').addClass('userItems');
@@ -75,13 +73,11 @@
 //-----------------------------ITEMS-----------------------------------//
 
   function getItems(){
-    debugger;
     var url = window.location.origin.replace(/3000/, '4000') + '/items';
     $.getJSON(url, fillItemTable);
   }
 
   function fillItemTable(data){
-    debugger;
   // called on succcess of GET request
     var items = data.items;
     for(var i = 0; i < items.length; i++){
@@ -91,7 +87,6 @@
   }
   function putItemOnScreen(item){
   // Will take in one item object and post to item table with a data-id of the _id in mongo database
-    debugger;
     var $itemName = $('<td>').text(item.name).addClass('itemName');
     var $itemCost = $('<td>').text(item.cost).addClass('itemCost');
     var $quantity = $('<td>').text(item.quantity).addClass('itemQuantity');
@@ -102,7 +97,7 @@
   }
 
   function createItem(event){
-    debugger;
+    // On button click, adds item to database and displays in item table
     var name = $('#itemName').val();
     var cost = $('#cost').val();
     var quantity = $('#quantity').val();
@@ -121,9 +116,16 @@
   }
 
   function itemPostSuccess(response){
-    debugger;
+    // function is called when post request is successful
     putItemOnScreen(response[0]);
     itemArray.push(response[0]);
   }
 
+//------------------------------Transactions----------------------------//
+
+  function purchaseItem(event){
+    console.log(this);
+    console.log(event);
+    event.preventDefault();
+  }
 })();
