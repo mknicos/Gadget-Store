@@ -69,6 +69,7 @@ html(class='no-js', lang='en')
             select#quantityBuy(placeholder:'select quantity')
               option Select Quantity
             button#confirmBuy.alert CONFIRM
+            input#hiddenValues(type='hidden', data-cash = '', data-item-id = '', data-cost ='')
         
     script(src='/js/vendor/jquery.js')
     script(src='/js/vendor/foundation.js')

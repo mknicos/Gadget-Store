@@ -147,10 +147,11 @@
     var selectName = selectedRow.children('.itemName').text();
     var selectCost = selectedRow.children('.itemCost').text();
     var selectQuantity = selectedRow.children('.itemQuantity').text();
+    $('#hiddenValues').attr('data-item-id', id).attr('data-cost', selectCost);
     fillUserDropDown();
     fillQuantityDropDown(selectQuantity);
 
-    $('#popUpBuy h2').text(selectName).attr('data-id', id);
+    $('#popUpBuy h2').text(selectName);
     $('#popUpBuy  h3').text('Cost is $' +selectCost+ ' each');
     $('#popUpBuy  h4').text('There are ' + selectQuantity + ' available');
     event.preventDefault();
@@ -163,7 +164,7 @@
       var name = user[i].name;
       var id = user[i]._id;
       var cash = user[i].cash;
-      var $option = $('<option>').attr('data-id', id).text(name + ': ( $' + cash+')');
+      var $option = $('<option>').attr('data-user-id', id).text(name + ': ( $' + cash+')');
       $option.attr('data-cash', cash);
       $('#usersBuy').append($option);
     }
@@ -178,16 +179,15 @@
 
   function confirmBuy(){
     debugger;
+    var user = $('#usersBuy').find('option:selected').data('id');
     var userCash = $('#usersBuy').data('cash');
-    var user = $('#usersBuy').val();
+    var itemCost = $('#hiddenValues').data('cost');
     var quantity = $('#quantityBuy').val();
-    var id = $('#popUpBuy h2').data('id');
-    var row = $('#itemTable[data-id='+id+']');
-    var selectCost = row.children('.itemCost').text();
-    var itemData = _.find(userArray, {'_id' : id});
+    var itemId = $('#hiddenValues').data('item-id');
+    var itemData = _.find(itemArray, {'_id' : itemId});
     console.log(itemData);
 
-    if((selectCost * quantity) > userCash){
+    if((itemCost * quantity) > userCash){
       alert(user + ' doesnt have enough money');
       return;
     }else{
